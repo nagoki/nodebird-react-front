@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Form, Input, Button } from 'antd';
 import Link from 'next/link';
 import styled from 'styled-components';
@@ -7,20 +7,25 @@ const ButtonWrapper = styled.div`
     margin-top: 10px;
 `;
 
-const LoginForm = () => {
+const LoginForm = ({ setIsLoggedIn }) => {
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
 
-    const onChangeId = useCallback(() => {
+    const onChangeId = useCallback((e) => {
         setId(e.target.value);
     }, []);
 
-    const onChangePassword = useCallback(() => {
+    const onChangePassword = useCallback((e) => {
         setPassword(e.target.value);
     }, []);
 
+    const onSubmitForm = useCallback(() => {
+        console.log(id, password);
+        setIsLoggedIn(true);
+    }, [id, password]);
+
     return (
-        <Form>
+        <Form onFinish={onSubmitForm}>
             <div>
                 <label htmlFor="user-id">아이디</label>
                 <br />
