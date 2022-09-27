@@ -23,7 +23,7 @@ const AppLayout = ({ children }) => {
                     <Link href="/profile"><a>프로필</a></Link>
                 </Menu.Item>
                 <Menu.Item>
-                    <Input.Search enterButton />
+                    <SearchInput enterButton />
                 </Menu.Item>
                 <Menu.Item>
                     <Link href="/signup"><a>회원가입</a></Link>
@@ -31,7 +31,7 @@ const AppLayout = ({ children }) => {
             </Menu>
             <Row gutter={8}>
                 <Col xs={24} md={6}>
-                    {isLoggedIn ? <UserProfile /> : <LoginForm setIsLoggedIn={setIsLoggedIn} />}
+                    {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn} /> : <LoginForm setIsLoggedIn={setIsLoggedIn} />}
                 </Col>
                 <Col xs={24} md={12}>
                     {children}
@@ -40,7 +40,7 @@ const AppLayout = ({ children }) => {
                     <a href="https://devdep.tistory.com/" target="_blank" rel="noreferrer noopener">Made by Nagoki</a>
                 </Col>
             </Row>
-        </div>
+        </div> 
     )
 };
 
