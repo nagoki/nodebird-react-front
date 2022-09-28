@@ -1,28 +1,30 @@
 import React, { useCallback, useState } from 'react';
 import Head from 'next/head';
-import AppLayout from "../componets/AppLayout";
-import styled from 'styled-components';
 import { Form, Input, Checkbox, Button } from 'antd';
+import styled from 'styled-components';
+
 import useInput from '../hooks/useInput';
+import AppLayout from "../componets/AppLayout";
 
 const ErrorMessage = styled.div`
     color: 'red';
 `;
 
 const Signup = () => {
-    const [id, onChangeId] = useState('');
-    const [nickname, onChangeNickname] = useState('');
-    const [password, onChangePassword] = useState('');
+    const [id, onChangeId] = useInput('');
+    const [nickname, onChangeNickname] = useInput('');
+    const [password, onChangePassword] = useInput('');
     const [passwordCheck, setPasswordCheck] = useState('');
     const [passwordError, setPasswordError] = useState(false);
     const onChangePasswordCheck = useCallback((e) => {
         setPasswordCheck(e.target.value);
         setPasswordError(e.target.value !== password);
-    }, [password])
+    }, [password]);
+
     const [term, setTerm] = useState('');
     const [termError, setTermError] = useState(false);
     const onChangeTerm = useCallback((e) => {
-        setTerm(e.target.value);
+        setTerm(e.target.checked);
         setTermError(false);
     }, [])
 
