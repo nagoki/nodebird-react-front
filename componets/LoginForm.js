@@ -15,14 +15,13 @@ const FormWrapper = styled(Form)`
     padding: 10;
 `;
 
-const LoginForm = ({ setIsLoggedIn }) => {
-    const dispatch = useDispatch();
+const LoginForm = () => {
     const [id, onChangeId] = useInput('');
     const [password, onChangePassword] = useInput('');
+    const dispatch = useDispatch();
 
     const onSubmitForm = useCallback(() => {
-        console.log(id, password);
-        dispatch(loginAction());
+        dispatch(loginAction({ id, password }));
     }, [id, password]);
 
     return (
@@ -30,28 +29,32 @@ const LoginForm = ({ setIsLoggedIn }) => {
             <div>
                 <label htmlFor="user-id">아이디</label>
                 <br />
-                <Input name="user-id" value={id} onChange={onChangeId} required />
+                <Input name="user-id" value={id} onChange={onChangeId} />
             </div>
             <div>
                 <label htmlFor="user-password">비밀번호</label>
-                <br />
-                <Input name="user-password"
+                <Input
+                    name="user-password"
                     type="password"
                     value={password}
                     onChange={onChangePassword}
-                    required 
+                    required
                 />
             </div>
             <ButtonWrapper>
-                <Button type="primary" htmlType='submit' loading={false}>로그인</Button>
+                <Button type="primary" htmlType="submit" loading={false}>로그인</Button>
                 <Link href="/signup"><a><Button>회원가입</Button></a></Link>
             </ButtonWrapper>
         </FormWrapper>
     );
-}
+};
 
 LoginForm.propTypes = {
     setIsLoggedIn: PropTypes.func.isRequired,
+};
+
+LoginForm.defaultProps = {
+    setIsLoggedIn: () => console.warn('setIsLoggedIn 값이 없습니다')
 };
 
 export default LoginForm;

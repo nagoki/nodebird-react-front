@@ -1,3 +1,5 @@
+import { HYDRATE } from "next-redux-wrapper";
+
 const initialState = {
     user: {
         isLoggedIn: false,
@@ -17,20 +19,18 @@ export const loginAction= (data) => {
     }
 }
 
-const changeNickname = (data) => {
+export const logoutAction= () => {
     return {
-        type: 'CHANGE_NICKNAME',
-        data,
+        type: 'LOG_OUT',
     }
-};
-
-changeNickname('jong');
-
-store.dispatch(changeNickname('jonghyuk'))
+}
 
 // (이전상태, 액션) => 다음상태
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case HYDRATE:
+            console.log('HYDRATE', action);
+            return { ...state, ...action.payload };
         case 'LOG_IN':
             return {
                 ...state,
@@ -40,5 +40,18 @@ const rootReducer = (state = initialState, action) => {
                     user: action.data,
                 }
             };
+        case 'LOG_OUT':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    isLoggedIn: false,
+                    user: null,
+                }
+            };
+        default:
+            return state;
     }
 };
+
+export default rootReducer;
